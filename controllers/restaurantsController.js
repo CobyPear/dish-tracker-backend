@@ -32,8 +32,7 @@ const getRestaurantsByGeolocation = async(req, res) => {
 
     } catch (error) {
         const statusCode = res.statusCode === 200 ? 500 : res.statusCode
-        res.status(statusCode)
-        res.json({
+        return res.status(statusCode).json({
             message: error.message,
             stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })
@@ -60,7 +59,7 @@ const getRestaurantsByZip = async(req, res) => {
 
         const response = await axios.request(options)
 
-        res.sendStatus(200).json({
+        return res.sendStatus(200).json({
             restaurants: response.data.data,
             page: page,
             pageId: cuid()
@@ -68,8 +67,7 @@ const getRestaurantsByZip = async(req, res) => {
 
     } catch (error) {
         const statusCode = res.statusCode === 200 ? 500 : res.statusCode
-        res.status(statusCode)
-        res.json({
+       return  res.status(statusCode).json({
             message: error.message,
             stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })

@@ -20,7 +20,7 @@ export const getMenu = async(req, res) => {
 
         const response = await axios.request(options)
 
-        res.status(200).json({
+        return res.status(200).json({
             menu: response.data.data,
             restaurant: restaurant_id,
             page: page,
@@ -30,8 +30,7 @@ export const getMenu = async(req, res) => {
 
     } catch (error) {
         const statusCode = res.statusCode === 200 ? 500 : res.statusCode
-        res.status(statusCode)
-        res.json({
+        return res.status(statusCode).json({
             message: error.message,
             stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })
