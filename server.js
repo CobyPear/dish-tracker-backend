@@ -8,7 +8,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 import restaurantRoutes from './routes/restaurantRoutes.js'
+import menuRoutes from './routes/menuRoutes.js'
 
 app.use('/api/restaurants', restaurantRoutes)
+app.use('/api/menu', menuRoutes)
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))

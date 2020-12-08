@@ -16,7 +16,6 @@ const getRestaurantsByGeolocation = async(req, res) => {
                 lon: Number(lon),
                 page: Number(page),
                 distance: 1,
-                fullMenu: true
             },
             headers: {
                 'X-API-KEY': process.env.API_KEY
@@ -46,10 +45,9 @@ const getRestaurantsByZip = async(req, res) => {
 
         const options = {
             method: 'GET',
-            url: `https://api.documenu.com/v2/restaurants/zip_code/${Number(zip)}`,
+            url: `https://api.documenu.com/v2/restaurants/zip_code/${zip}`,
             params: {
                 page: page,
-                fullmenu: true
             },
             headers: {
                 'X-API-KEY': process.env.API_KEY
@@ -58,7 +56,7 @@ const getRestaurantsByZip = async(req, res) => {
 
         const response = await axios.request(options)
 
-        res.status(200).json({
+        res.sendStatus(200).json({
             restaurants: response.data.data,
             page: page,
             pageId: cuid()
@@ -66,7 +64,7 @@ const getRestaurantsByZip = async(req, res) => {
 
     } catch (error) {
         console.log(error)
-        res.status(error.code).json(error)
+        res.sendStatus(error.code).json(error)
     }
 }
 
