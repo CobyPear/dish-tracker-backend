@@ -20,12 +20,15 @@ export const getMenu = async(req, res) => {
 
         const response = await axios.request(options)
 
-        return res.status(200).json({
-            menu: response.data.data,
-            restaurant: restaurant_id,
-            page: page,
-            pageId: cuid()
-        })
+        if (response)
+            return  await res.status(200).json({
+                menu: response.data.data,
+                restaurant: restaurant_id,
+                page: page,
+                pageId: cuid()
+            })
+        else
+            throw new Error(error)
 
 
     } catch (error) {

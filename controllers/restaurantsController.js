@@ -24,11 +24,14 @@ const getRestaurantsByGeolocation = async(req, res) => {
 
         const response = await axios.request(options)
 
-        return res.status(200).json({
-            restaurants: response.data.data,
-            page: page,
-            pageId: cuid()
-        })
+        if (response) 
+            return await res.status(200).json({
+                restaurants: response.data.data,
+                page: page,
+                pageId: cuid()
+            })
+        else
+            throw new Error(error)
 
     } catch (error) {
         const statusCode = res.statusCode
@@ -59,15 +62,18 @@ const getRestaurantsByZip = async(req, res) => {
 
         const response = await axios.request(options)
 
-        return res.sendStatus(200).json({
-            restaurants: response.data.data,
-            page: page,
-            pageId: cuid()
-        })
+        if (response) 
+            return res.status(200).json({
+                restaurants: response.data.data,
+                page: page,
+                pageId: cuid()
+            })
+        else
+            throw new Error(error)
 
     } catch (error) {
         const statusCode = res.statusCode
-       return  res.status(statusCode).json({
+        return res.status(statusCode).json({
             message: error.message,
             stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })
