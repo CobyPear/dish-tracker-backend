@@ -31,7 +31,6 @@ const getRestaurantsByGeolocation = async(req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
         res.status(400).json(error)
     }
 }
@@ -63,8 +62,7 @@ const getRestaurantsByZip = async(req, res) => {
         })
 
     } catch (error) {
-        console.log(error)
-        res.sendStatus(error.code).json(error)
+        res.status(400).json(error)
     }
 }
 

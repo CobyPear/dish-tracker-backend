@@ -9,12 +9,15 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Coby Sher",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
