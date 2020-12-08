@@ -35,7 +35,7 @@ const getRestaurantsByGeolocation = async(req, res) => {
         res.status(statusCode)
         res.json({
             message: error.message,
-            stack: proccess.env.NODE_ENV === 'production' ? null : error.stack
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })
     }
 }
@@ -71,7 +71,7 @@ const getRestaurantsByZip = async(req, res) => {
         res.status(statusCode)
         res.json({
             message: error.message,
-            stack: proccess.env.NODE_ENV === 'production' ? null : error.stack
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack
         })
     }
 }
