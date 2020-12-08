@@ -31,7 +31,12 @@ const getRestaurantsByGeolocation = async(req, res) => {
         })
 
     } catch (error) {
-        res.status(400).json(error)
+        const statusCode = res.statusCode === 200 ? 500 : res.statusCode
+        res.status(statusCode)
+        res.json({
+            message: error.message,
+            stack: proccess.env.NODE_ENV === 'production' ? null : error.stack
+        })
     }
 }
 
@@ -62,7 +67,12 @@ const getRestaurantsByZip = async(req, res) => {
         })
 
     } catch (error) {
-        res.status(400).json(error)
+        const statusCode = res.statusCode === 200 ? 500 : res.statusCode
+        res.status(statusCode)
+        res.json({
+            message: error.message,
+            stack: proccess.env.NODE_ENV === 'production' ? null : error.stack
+        })
     }
 }
 

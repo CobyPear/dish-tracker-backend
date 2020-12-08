@@ -29,6 +29,11 @@ export const getMenu = async(req, res) => {
 
 
     } catch (error) {
-        res.status(400).json(error.message)
+        const statusCode = res.statusCode === 200 ? 500 : res.statusCode
+        res.status(statusCode)
+        res.json({
+            message: error.message,
+            stack: proccess.env.NODE_ENV === 'production' ? null : error.stack
+        })
     }
 }
