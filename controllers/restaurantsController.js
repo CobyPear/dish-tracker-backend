@@ -23,7 +23,7 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         }
 
         const response = await axios.request(options)
-
+        console.log(res.statusCode)
         if (response)
             return res.status(200).json({
                 restaurants: response.data.data,
@@ -37,7 +37,8 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         const statusCode = res.statusCode
         return res.status(statusCode).json({
             message: error.message,
-            stack: error.stack
+            stack: error.stack,
+            response: error.response
         })
     }
 }
@@ -75,7 +76,8 @@ const getRestaurantsByZip = async(req, res, next) => {
         const statusCode = res.statusCode
         return res.status(statusCode).json({
             message: error.message,
-            stack: error.stack
+            stack: error.stack,
+            response: error.response
         })
     }
 }

@@ -35,7 +35,8 @@ export const getMenu = async(req, res, next) => {
         const statusCode = res.statusCode
         return res.status(statusCode).json({
             message: error.message,
-            stack: error.stack
+            stack: error.stack,
+            response: error.response
         })
     }
 }
