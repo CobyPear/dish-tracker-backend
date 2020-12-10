@@ -38,7 +38,7 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         return res.status(statusCode).json({
             message: error.message,
             stack: error.stack,
-            response: error.response
+            error: error
         })
     }
 }
@@ -77,7 +77,7 @@ const getRestaurantsByZip = async(req, res, next) => {
         return res.status(statusCode).json({
             message: error.message,
             stack: error.stack,
-            response: error.response
+            error: error
         })
     }
 }
