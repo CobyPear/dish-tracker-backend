@@ -21,14 +21,14 @@ export const getMenu = async(req, res, next) => {
         const response = await axios.request(options)
 
         if (response)
-            return res.status(200).json({
+            return res.status(res.statusCode).json({
                 menu: response.data.data,
                 restaurant: restaurant_id,
                 page: page,
                 pageId: cuid()
             })
         else
-            return res.status(503).json('Internal Server Error')
+            throw error
 
 
     } catch (error) {

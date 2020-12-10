@@ -25,13 +25,13 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         const response = await axios.request(options)
         console.log(res.statusCode)
         if (response)
-            return res.status(200).json({
+            return res.status(res.statusCode).json({
                 restaurants: response.data.data,
                 page: page,
                 pageId: cuid()
             })
         else
-            return res.status(503).json('Internal Server Error')
+            throw error
 
     } catch (error) {
         const statusCode = res.statusCode
@@ -64,13 +64,13 @@ const getRestaurantsByZip = async(req, res, next) => {
         const response = await axios.request(options)
 
         if (response)
-            return res.status(200).json({
+            return res.status(res.statusCode).json({
                 restaurants: response.data.data,
                 page: page,
                 pageId: cuid()
             })
         else
-            return res.status(503).json('Internal Server Error')
+            throw error
 
     } catch (error) {
         const statusCode = res.statusCode
