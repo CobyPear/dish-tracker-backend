@@ -4,7 +4,7 @@ import cuid from 'cuid'
 // @desc Get restaurants by geolocation
 // @route GET /api/restaurants
 // @access Public
-const getRestaurantsByGeolocation = async(req, res) => {
+const getRestaurantsByGeolocation = async(req, res, next) => {
     try {
         const { lat, lon, page } = await req.body
 
@@ -45,7 +45,7 @@ const getRestaurantsByGeolocation = async(req, res) => {
 // @desc Get restaurants by zipcode
 // @route GET /api/restaurants
 // @access Public
-const getRestaurantsByZip = async(req, res) => {
+const getRestaurantsByZip = async(req, res, next) => {
     try {
         const { zip, page } = await req.body
 

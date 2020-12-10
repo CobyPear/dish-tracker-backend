@@ -3,7 +3,7 @@ import cuid from 'cuid'
 // @desc Get menu by restaurantId
 // @route GET /api/menu
 // @access Public
-export const getMenu = async(req, res) => {
+export const getMenu = async(req, res, next) => {
     try {
         const { restaurant_id, page } = req.body
 
