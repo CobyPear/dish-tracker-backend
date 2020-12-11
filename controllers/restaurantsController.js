@@ -23,22 +23,24 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         }
 
         const response = await axios.request(options)
-        console.log(res.statusCode)
-        if (response)
+        
+        if (response) {
+            const id = cuid()
             return res.status(res.statusCode).json({
                 restaurants: response.data.data,
                 page: page,
-                pageId: cuid()
+                pageId: id
             })
-        else
+        } else {
             throw error
+        }
 
     } catch (error) {
         const statusCode = res.statusCode
         return res.status(statusCode).json({
             message: error.message,
-            stack: error.stack,
-            error: error
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack,
+            error: process.env.NODE_ENV === 'production' ? null : error
         })
     }
 }
@@ -63,21 +65,23 @@ const getRestaurantsByZip = async(req, res, next) => {
 
         const response = await axios.request(options)
 
-        if (response)
+        if (response) {
+            const id = cuid()
             return res.status(res.statusCode).json({
                 restaurants: response.data.data,
                 page: page,
-                pageId: cuid()
+                pageId: id
             })
-        else
+        } else {
             throw error
+        }
 
     } catch (error) {
         const statusCode = res.statusCode
         return res.status(statusCode).json({
             message: error.message,
-            stack: error.stack,
-            error: error
+            stack: process.env.NODE_ENV === 'production' ? null : error.stack,
+            error: process.env.NODE_ENV === 'production' ? null : error
         })
     }
 }
