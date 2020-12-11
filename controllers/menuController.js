@@ -10,6 +10,7 @@ export const getMenu = async(req, res, next) => {
         const options = {
             method: 'GET',
             url: `https://api.documenu.com/v2/restaurant/${restaurant_id}/menuitems`,
+            timeout: 15000,
             params: {
                 page: page,
             },

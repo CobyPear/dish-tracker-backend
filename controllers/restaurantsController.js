@@ -11,6 +11,7 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         const options = {
             method: 'GET',
             url: 'https://api.documenu.com/v2/restaurants/search/geo',
+            timeout: 15000,
             params: {
                 lat: Number(lat),
                 lon: Number(lon),
@@ -56,6 +57,7 @@ const getRestaurantsByZip = async(req, res, next) => {
         const options = {
             method: 'GET',
             url: `https://api.documenu.com/v2/restaurants/zip_code/${zip}`,
+            timeout: 15000,
             params: {
                 page: page,
             },
