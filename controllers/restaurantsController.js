@@ -22,26 +22,27 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
             }
         }
 
-        const response = await axios.request(options)
-        
-        if (response) {
-            const id = cuid()
-            return res.status(res.statusCode).json({
-                restaurants: response.data.data,
-                page: page,
-                pageId: id
-            })
-        } else {
-            throw error
-        }
+        const resp = await axios.request(options)
+
+        const id = cuid()
+
+        return res.status(res.statusCode).json({
+            restaurants: resp.data.data,
+            page: page,
+            pageId: id
+        })
 
     } catch (error) {
-        const statusCode = res.statusCode
-        return res.status(statusCode).json({
-            message: error.message,
-            stack: process.env.NODE_ENV === 'production' ? null : error.stack,
-            error: process.env.NODE_ENV === 'production' ? null : error
-        })
+        if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+        } else if (error.request) {
+            console.log(error.request.data)
+        } else {
+            console.log('Error', error.message)
+        }
+        console.log(error.config)
     }
 }
 
@@ -63,26 +64,28 @@ const getRestaurantsByZip = async(req, res, next) => {
             }
         }
 
-        const response = await axios.request(options)
+        const resp = await axios.request(options)
 
-        if (response) {
-            const id = cuid()
-            return res.status(res.statusCode).json({
-                restaurants: response.data.data,
-                page: page,
-                pageId: id
-            })
-        } else {
-            throw error
-        }
+        const id = cuid()
+
+        return res.status(res.statusCode).json({
+            restaurants: resp.data.data,
+            page: page,
+            pageId: id
+        })
+
 
     } catch (error) {
-        const statusCode = res.statusCode
-        return res.status(statusCode).json({
-            message: error.message,
-            stack: process.env.NODE_ENV === 'production' ? null : error.stack,
-            error: process.env.NODE_ENV === 'production' ? null : error
-        })
+        if (error.response) {
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+        } else if (error.request) {
+            console.log(error.request.data)
+        } else {
+            console.log('Error', error.message)
+        }
+        console.log(error.config)
     }
 }
 
