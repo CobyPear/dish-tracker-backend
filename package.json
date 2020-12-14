@@ -17,7 +17,8 @@
     "connect-timeout": "^1.9.0",
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-session": "^1.17.1"
   },
   "engines": {
     "node": "14.x"
