@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'production') {
     const redisURL = url.parse(process.env.REDIS_URL)
     const client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true })
     client.auth(redisURL.auth.split(':')[1])
+    console.log("client: ", client)
 }
 
 app.use(session({
