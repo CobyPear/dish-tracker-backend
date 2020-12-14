@@ -1,21 +1,22 @@
 const express = require('express')
 const app = express()
-const dotenv = require('dotenv')
-const timeout = require('connect-timeout')
+const url = require('url')
+const dotenv = require('dotenv').config()
 const redis = require('redis')
-const client = redis.createClient()
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 
-
-dotenv.config()
+if (process.env.NODE_ENV === 'production') {
+    const redisURL = url.parse(process.env.REDISCLOUD_URL)
+    const client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true })
+    client.auth(redisURL.auth.split(':')[1])
+}
 
 app.use(session({
     store: process.env.NODE_ENV === 'production' ? new RedisStore({
-            url: process.env.REDIS_URL,
-            client: client
-        }) :
-        null,
+        url: process.env.REDIS_URL,
+        client: client
+    }) : null,
     secret: 'smokeymuffinsandteapotarethecutest1',
     resave: true,
     saveUninitialized: true
@@ -23,11 +24,10 @@ app.use(session({
 
 const PORT = process.env.PORT || 8080
 
-app.use(timeout('10s'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
-const restaurantRoutes = require('./routes/restaurantRoutes.js') 
+const restaurantRoutes = require('./routes/restaurantRoutes.js')
 const menuRoutes = require('./routes/menuRoutes.js')
 
 app.use('/api/restaurants', restaurantRoutes)
