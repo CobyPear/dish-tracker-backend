@@ -2,14 +2,14 @@ import express from 'express'
 const app = express()
 import dotenv from 'dotenv'
 import timeout from 'connect-timeout'
-import session from 'express-session'
-import RedisStore from 'connect-redis'
-let RedisSessionStore = RedisStore(session)
+const session = require('express-session')
+const store = require('connect-redis')
+const RedisStore = store(session);
 
 dotenv.config()
 
 app.use(session({
-    store: process.env.NODE_ENV === 'production' ? new RedisSessionStore({
+    store: process.env.NODE_ENV === 'production' ? new RedisStore({
             url: process.env.REDIS_URL
         }) :
         null,
