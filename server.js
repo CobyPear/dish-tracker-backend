@@ -2,15 +2,17 @@ const express = require('express')
 const app = express()
 const dotenv = require('dotenv')
 const timeout = require('connect-timeout')
+const redis = require('redis')
 const session = require('express-session')
-const store = require('connect-redis')
-const RedisStore = store(session);
+const RedisStore = require('connect-redis')
+
 
 dotenv.config()
 
 app.use(session({
     store: process.env.NODE_ENV === 'production' ? new RedisStore({
-            url: process.env.REDIS_URL
+            url: process.env.REDIS_URL,
+            client: redisClient,
         }) :
         null,
     secret: 'smokeymuffinsandteapotarethecutest1',
