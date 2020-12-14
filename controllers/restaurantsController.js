@@ -1,5 +1,5 @@
-import axios from 'axios'
-import cuid from 'cuid'
+const axios = require('axios')
+const cuid = require('cuid')
 
 // @desc Get restaurants by geolocation
 // @route GET /api/restaurants
@@ -91,7 +91,7 @@ const getRestaurantsByZip = async(req, res, next) => {
     }
 }
 
-export {
+module.exports = {
     getRestaurantsByGeolocation,
     getRestaurantsByZip
 

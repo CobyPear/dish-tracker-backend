@@ -1,5 +1,5 @@
-import express from 'express'
-import { getRestaurantsByGeolocation, getRestaurantsByZip } from '../controllers/restaurantsController.js'
+const express = require('express')
+const { getRestaurantsByGeolocation, getRestaurantsByZip}  = require('../controllers/restaurantsController.js')
 
 const router = express.Router()
 
@@ -7,4 +7,4 @@ const router = express.Router()
 router.get('/geo', getRestaurantsByGeolocation)
 router.get('/zip', getRestaurantsByZip)
 
-export default router
+module.exports = router

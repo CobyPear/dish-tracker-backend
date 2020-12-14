@@ -24,8 +24,8 @@ app.use(timeout('10s'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
-import restaurantRoutes from './routes/restaurantRoutes.js'
-import menuRoutes from './routes/menuRoutes.js'
+const restaurantRoutes = require('./routes/restaurantRoutes.js') 
+const menuRoutes = require('./routes/menuRoutes.js')
 
 app.use('/api/restaurants', restaurantRoutes)
 app.use('/api/menu', menuRoutes)

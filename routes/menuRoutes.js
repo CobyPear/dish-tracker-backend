@@ -1,10 +1,9 @@
-import express from 'express'
-import { getMenu } from '../controllers/menuController.js'
+const express = require('express')
+const getMenu = require('../controllers/menuController.js')
 
 const router = express.Router()
 
 
 router.get('/', getMenu)
 
-
-export default router
+module.exports = router

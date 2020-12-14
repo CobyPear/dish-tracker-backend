@@ -1,9 +1,10 @@
-import axios from 'axios'
-import cuid from 'cuid'
+const axios = require('axios')
+const cuid = require('cuid')
+
 // @desc Get menu by restaurantId
 // @route GET /api/menu
 // @access Public
-export const getMenu = async(req, res, next) => {
+const getMenu = async(req, res, next) => {
     try {
         const { restaurant_id, page } = req.body
 
@@ -44,3 +45,5 @@ export const getMenu = async(req, res, next) => {
         console.log(error.config)
     }
 }
+
+module.exports = getMenu
