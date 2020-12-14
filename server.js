@@ -3,7 +3,7 @@ const app = express()
 import dotenv from 'dotenv'
 import timeout from 'connect-timeout'
 import session from 'express-session'
-import RedisStore from 'connect-redis'
+const RedisStore = (await import('connect-redis'))(session)
 
 dotenv.config()
 
