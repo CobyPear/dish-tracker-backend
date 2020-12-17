@@ -1,5 +1,6 @@
 const axios = require('axios')
 const cuid = require('cuid')
+const Queue = require('bull')
 
 // @desc Get restaurants by geolocation
 // @route GET /api/restaurants
@@ -27,11 +28,20 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
 
         const id = cuid()
 
-        return res.status(res.statusCode).json({
+        let data = {
             restaurants: resp.data.data,
             page: page,
             pageId: id
-        })
+        }
+
+        let workQueue = new Queue('restaurant',process.env.REDIS_URL)
+        let job = await workQueue.add(data)
+
+        workQueue.on('global:completed', (jobId, result) => {
+            console.log(`Job completed with result ${result}`);
+          });
+          
+        return res.status(res.statusCode).json(job.data)
 
     } catch (error) {
         if (error.response) {
@@ -70,12 +80,20 @@ const getRestaurantsByZip = async(req, res, next) => {
 
         const id = cuid()
 
-        return res.status(res.statusCode).json({
+        const data = {
             restaurants: resp.data.data,
             page: page,
             pageId: id
-        })
+        }
 
+        let workQueue = new Queue('restaurant', process.env.REDIS_URL)
+        let job = await workQueue.add(data)
+
+        workQueue.on('global:completed', (jobId, result) => {
+            console.log(`Job completed with result ${result}`);
+          });
+
+        return res.status(res.statusCode).json(job.data)
 
     } catch (error) {
         if (error.response) {

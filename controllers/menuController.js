@@ -1,5 +1,7 @@
 const axios = require('axios')
 const cuid = require('cuid')
+const Queue = require('bull')
+
 
 // @desc Get menu by restaurantId
 // @route GET /api/menu
@@ -24,12 +26,21 @@ const getMenu = async(req, res, next) => {
 
         const id = cuid()
 
-        return res.status(res.statusCode).json({
+        const data = {
             menu: resp.data.data,
             restaurant: restaurant_id,
             page: page,
             pageId: id
-        })
+        }
+
+        let workQueue = new Queue('menu', process.env.REDIS_URL)
+        let job = await workQueue.add(data)
+
+        workQueue.on('global:completed', (jobId, result) => {
+            console.log(`Job completed with result ${result}`);
+          });
+
+        return res.status(res.statusCode).json(job.data)
 
 
     } catch (error) {
