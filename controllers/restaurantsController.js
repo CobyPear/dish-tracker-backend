@@ -1,13 +1,25 @@
 const axios = require('axios')
 const cuid = require('cuid')
 const Queue = require('bull')
+const url = require('url')
+const querystring = require('querystring')
 
 // @desc Get restaurants by geolocation
 // @route GET /api/restaurants
 // @access Public
-const getRestaurantsByGeolocation = async(req, res, next) => {
+const getRestaurantsByGeolocation = async (req, res, next) => {
     try {
-        const { lat, lon, page } = await req.body
+        let rawUrl = req.originalUrl
+        let parsedUrl = url.parse(rawUrl)
+        let parsedQs = querystring.parse(parsedUrl.query)
+
+        const { lat, lon, page } = parsedQs
+        console.log(lat, lon, page)
+        // console.log(req)
+        // console.log('req.params', req.params)
+        // const lat = req.params.lat
+        // const lon = req.params.lon
+        // const page = req.params.page
 
         const options = {
             method: 'GET',
@@ -37,12 +49,7 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
         let workQueue = new Queue('restaurant',process.env.REDIS_URL)
         let job = await workQueue.add(data)
 
-        workQueue.on('global:completed', (jobId, result) => {
-            console.log(`Job completed with result ${result}`);
-          });
-          
         return res.status(res.statusCode).json(job.data)
-
     } catch (error) {
         if (error.response) {
             console.log(error.response.data)
@@ -62,7 +69,11 @@ const getRestaurantsByGeolocation = async(req, res, next) => {
 // @access Public
 const getRestaurantsByZip = async(req, res, next) => {
     try {
-        const { zip, page } = await req.body
+        let rawUrl = req.originalUrl
+        let parsedUrl = url.parse(rawUrl)
+        let parsedQs = querystring.parse(parsedUrl.query)
+
+        const { zip, page } = parsedQs
 
         const options = {
             method: 'GET',
