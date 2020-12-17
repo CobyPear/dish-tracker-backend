@@ -14,12 +14,6 @@ const getRestaurantsByGeolocation = async (req, res, next) => {
         let parsedQs = querystring.parse(parsedUrl.query)
 
         const { lat, lon, page } = parsedQs
-        console.log(lat, lon, page)
-        // console.log(req)
-        // console.log('req.params', req.params)
-        // const lat = req.params.lat
-        // const lon = req.params.lon
-        // const page = req.params.page
 
         const options = {
             method: 'GET',
