@@ -1,5 +1,4 @@
 const axios = require('axios')
-const cuid = require('cuid')
 const Queue = require('bull')
 const url = require('url')
 const querystring = require('querystring')
@@ -29,19 +28,20 @@ const getMenu = async(req, res, next) => {
 
         const resp = await axios.request(options)
 
-        const id = cuid()
-
         const data = {
             menu: resp.data.data,
             restaurant: restaurant_id,
             page: page,
-            pageId: id
+            pageId: `${restaurant_id}-${page}`
         }
 
         let workQueue = new Queue('menu', process.env.REDIS_URL)
         let job = await workQueue.add(data)
 
-        return res.status(res.statusCode).json(job.data)
+        return (
+            res.status(res.statusCode).json(job.data),
+            workQueue.close()
+            )
     } catch (error) {
         if (error.response) {
             console.log(error.response.data)
