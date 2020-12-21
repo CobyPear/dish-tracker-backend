@@ -34,7 +34,7 @@ const getRestaurantsByGeolocation = async (req, res, next) => {
         let data = {
             restaurants: resp.data.data,
             page: page,
-            pageId: `${lat}-${lon}-${page}`
+            pageId: `${lat}_${lon}_${page}`
         }
 
         let workQueue = new Queue('restaurant',process.env.REDIS_URL)
@@ -88,7 +88,7 @@ const getRestaurantsByZip = async(req, res, next) => {
         const data = {
             restaurants: resp.data.data,
             page: page,
-            pageId: `${zip}-${page}`
+            pageId: `${zip}_${page}`
         }
 
         let workQueue = new Queue('restaurant', process.env.REDIS_URL)

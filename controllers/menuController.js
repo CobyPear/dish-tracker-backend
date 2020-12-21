@@ -32,7 +32,7 @@ const getMenu = async(req, res, next) => {
             menu: resp.data.data,
             restaurant: restaurant_id,
             page: page,
-            pageId: `${restaurant_id}-${page}`
+            pageId: `${restaurant_id}_${page}`
         }
 
         let workQueue = new Queue('menu', process.env.REDIS_URL)
