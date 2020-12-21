@@ -30,10 +30,11 @@ const getRestaurantsByGeolocation = async (req, res, next) => {
         }
 
         const resp = await axios.request(options)
-
+        
         let data = {
             restaurants: resp.data.data,
             page: page,
+            totalPages: resp.data.total_pages,
             pageId: `${lat}_${lon}_${page}`
         }
 
@@ -83,11 +84,10 @@ const getRestaurantsByZip = async(req, res, next) => {
 
         const resp = await axios.request(options)
 
-        const id = cuid()
-
         const data = {
             restaurants: resp.data.data,
             page: page,
+            totalPages: resp.data.total_pages,
             pageId: `${zip}_${page}`
         }
 

@@ -32,6 +32,7 @@ const getMenu = async(req, res, next) => {
             menu: resp.data.data,
             restaurant: restaurant_id,
             page: page,
+            totalPages: resp.data.total_pages,
             pageId: `${restaurant_id}_${page}`
         }
 
