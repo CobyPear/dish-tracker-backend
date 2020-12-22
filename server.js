@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config()
 const createAllowListValidator = function (allowList) {
     return function (val) {
         for (let i = 0; i < allowList.length; i++) {
-            if (val === whitelist[i]) {
+            if (val === allowList[i]) {
                 return true
             }
         }
