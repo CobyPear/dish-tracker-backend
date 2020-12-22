@@ -3,7 +3,7 @@ const app = express()
 const dotenv = require('dotenv').config()
 
 // a function that validates origin of request and checks it against the allow list
-const createWhitelistValidator = function (allowList) {
+const createAllowListValidator = function (allowList) {
     return function (val) {
         for (let i = 0; i < allowList.length; i++) {
             if (val === whitelist[i]) {
