@@ -6,7 +6,7 @@ const corsOptions = {}
 
 const handleCors = (options) => {
     return (req, res, next) => {
-        res.set('Access-Control-Allow-Origin', 'https://cobypear.github.io/dish-tracker/')
+        res.set('Access-Control-Allow-Origin', 'https://cobypear.github.io/')
         next()
     }
 }
