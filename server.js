@@ -3,7 +3,16 @@ const app = express()
 const dotenv = require('dotenv').config()
 
 // a function that validates origin of request and checks it against the allow list
-const createAllowListValidator = (allowList) => (value) => allowList.forEach(listValue => value === listValue ? true : false)
+const createWhitelistValidator = function (allowList) {
+    return function (val) {
+        for (let i = 0; i < allowList.length; i++) {
+            if (val === whitelist[i]) {
+                return true
+            }
+        }
+        return false
+    }
+}
 const allowList = ['https://cobypear.github.io', 'http://localhost:8080', null]
 const corsOptions = {
     allowOrigin: createAllowListValidator(allowList)
