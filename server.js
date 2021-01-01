@@ -13,7 +13,7 @@ const createAllowListValidator = function (allowList) {
         return false
     }
 }
-const allowList = ['https://cobypear.github.io', 'https://cobypear.github.io/', 'http://localhost:8080', null]
+const allowList = ['https://cobypear.github.io*', 'https://cobypear.github.io/', 'http://localhost:8080', null]
 const corsOptions = {
     allowOrigin: createAllowListValidator(allowList)
 }
