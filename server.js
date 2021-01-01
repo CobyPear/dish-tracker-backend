@@ -26,7 +26,7 @@ const handleCors = (options) => {
             if (options.allowOrigin(origin)) {
                 res.set('Access-Control-Allow-Origin', origin)
             } else {
-                res.set('Access-Control-Allow-Origin', null)
+                res.set('Access-Control-Allow-Origin', '*')
             }
         }
         next()
